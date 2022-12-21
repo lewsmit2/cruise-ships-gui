@@ -1,0 +1,22 @@
+{
+  "name": "cruise-ships",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lewsmit2/cruise-ships.git"
+  },
+  "author": "Lewis Smith",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lewsmit2/cruise-ships/issues"
+  },
+  "homepage": "https://github.com/lewsmit2/cruise-ships#readme",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
+}
