@@ -8,13 +8,12 @@ describe('Itinerary', () => {
     let dover;
     let calais;
     let itinerary;
-    let port;
 
     beforeEach(() => {
       dover = new Port('Dover');
       calais = new Port('Calais');
+      itinerary = new Itinerary([dover, calais]);
       port = jest.fn();
-      itinerary = new Itinerary([port, port]);
     });
     describe('Itinerary constructor', () => {
       it('can be instantiated', () => {
@@ -24,7 +23,7 @@ describe('Itinerary', () => {
 
     describe('Itinerary can have ports', () => {
       it('can have ports', () => {
-        expect(itinerary.ports).toEqual([port, port]);
+        expect(itinerary.ports).toEqual([dover, calais]);
       });
     });
   });
