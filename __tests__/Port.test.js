@@ -1,6 +1,5 @@
 /* globals describe it expect */
 
-const { default: expect } = require('expect');
 const Port = require('../src/Port.js');
 
 describe('Port', () => {
@@ -9,7 +8,7 @@ describe('Port', () => {
     let ship;
     beforeEach(() => {
       port = new Port('Dover');
-      ship = {};
+      ship = jest.fn();
     });
 
     it('can also be instantiated', () => {

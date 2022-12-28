@@ -1,17 +1,31 @@
 /* globals describe it expect */
+
 const Itinerary = require('../src/Itinerary.js');
 const Port = require('../src/Port.js');
 
 describe('Itinerary', () => {
-  it('can be instantiated', () => {
-    expect(new Itinerary()).toBeInstanceOf(Object);
-  });
+  describe('with ports and itinerary', () => {
+    let dover;
+    let calais;
+    let itinerary;
+    let port;
 
-  it('can have ports', () => {
-    const dover = new Port('Dover');
-    const calais = new Port('Calais');
+    beforeEach(() => {
+      dover = new Port('Dover');
+      calais = new Port('Calais');
+      port = jest.fn();
+      itinerary = new Itinerary([port, port]);
+    });
+    describe('Itinerary constructor', () => {
+      it('can be instantiated', () => {
+        expect(new Itinerary()).toBeInstanceOf(Object);
+      });
+    });
 
-    const itinerary = new Itinerary([dover, calais]);
-    expect(itinerary.ports).toEqual([dover, calais]);
+    describe('Itinerary can have ports', () => {
+      it('can have ports', () => {
+        expect(itinerary.ports).toEqual([port, port]);
+      });
+    });
   });
 });
