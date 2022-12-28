@@ -14,7 +14,7 @@ describe('Ship', () => {
     beforeEach(() => {
       dover = { name: 'Dover', ships: [], addShip: jest.fn(), removeShip: jest.fn() };
       calais = { name: 'Calais', ships: [], addShip: jest.fn(), removeShip: jest.fn() };
-      itinerary = new Itinerary([dover, calais]);
+      itinerary = { ports: [dover, calais] };
       ship = new Ship(itinerary);
     });
 
