@@ -49,13 +49,19 @@
 
     setSail() {
       const ship = this.ship;
-
+      if (ship.itinerary.ports.length === 0) {
+        this.renderMessage('Welcome! Please add Ports first!');
+        return 0;
+      }
       const currentPortIndex = ship.itinerary.ports.indexOf(ship.currentPort);
       const nextPortIndex = currentPortIndex + 1;
       const nextPortElement = document.querySelector(`[data-port-index='${nextPortIndex}']`);
-
       if (!nextPortElement) {
-        return alert('End of the line!');
+        this.renderMessage('End of the line!');
+        return 0;
+      } else {
+        this.renderMessage(`Now departing ${ship.currentPort.name}`);
+        document.getElementById('sailbutton').disabled = true;
       }
 
       const shipElement = document.querySelector('#ship');
@@ -64,11 +70,24 @@
         if (shipLeft === (nextPortElement.offsetLeft - 32)) {
           ship.setSail();
           ship.dock();
+          this.renderMessage(`Now docking at ${ship.currentPort.name}`);
+
           clearInterval(sailInterval);
         }
 
         shipElement.style.left = `${shipLeft + 1}px`;
       }, 20);
+    }
+
+    renderMessage(msg) {
+      const viewId = document.querySelector('#viewport');
+      const messageElement = document.createElement('div');
+      messageElement.id = 'message';
+      messageElement.innerHTML = msg;
+      viewId.appendChild(messageElement);
+      window.setTimeout(() => {
+        viewId.removeChild(messageElement);
+      }, 2000);
     }
   }
   if (typeof module !== 'undefined' && module.exports) {

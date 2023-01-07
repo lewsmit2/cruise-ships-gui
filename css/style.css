@@ -17,6 +17,16 @@ body {
     background-image: url("../images/water0.png");
 }
 
+#message {
+    padding: 16px;
+    font-family: "Press Start 2P", cursive;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    border-top: 3px solid black;
+    background-color: white;
+  }
+
 #ports {
     margin-top: 96px;
     display: flex;
@@ -57,3 +67,5 @@ body {
     border-bottom-width: 0;
     padding-top: 14px;
   }
+
+ 
