@@ -1,7 +1,11 @@
 (function exportController() {
   class Controller {
-    constructor() {
+    constructor(ship) {
+      this.ship = ship;
       this.initialiseSea();
+      document.querySelector('#sailbutton').addEventListener('click', () => {
+        this.setSail();
+      });
     }
 
     initialiseSea() {
@@ -33,7 +37,8 @@
       });
     }
 
-    renderShip(ship) {
+    renderShip() {
+      const ship = this.ship;
       const shipPortIndex = ship.itinerary.ports.indexOf(ship.currentPort);
       const portElement = document.querySelector(`[data-port-index='${shipPortIndex}']`);
 
@@ -42,6 +47,29 @@
       shipElement.style.left = `${portElement.offsetLeft - 32}px`;
     }
 
+    setSail() {
+      const ship = this.ship;
+
+      const currentPortIndex = ship.itinerary.ports.indexOf(ship.currentPort);
+      const nextPortIndex = currentPortIndex + 1;
+      const nextPortElement = document.querySelector(`[data-port-index='${nextPortIndex}']`);
+
+      if (!nextPortElement) {
+        return alert('End of the line!');
+      }
+
+      const shipElement = document.querySelector('#ship');
+      const sailInterval = setInterval(() => {
+        const shipLeft = parseInt(shipElement.style.left, 10);
+        if (shipLeft === (nextPortElement.offsetLeft - 32)) {
+          ship.setSail();
+          ship.dock();
+          clearInterval(sailInterval);
+        }
+
+        shipElement.style.left = `${shipLeft + 1}px`;
+      }, 20);
+    }
   }
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = Controller;
