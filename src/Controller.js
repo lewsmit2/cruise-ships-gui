@@ -3,6 +3,9 @@
     constructor(ship) {
       this.ship = ship;
       this.initialiseSea();
+      if (ship.itinerary.ports.length > 0) {
+        this.headUpDisplay();
+      }
       document.querySelector('#sailbutton').addEventListener('click', () => {
         this.setSail();
       });
@@ -70,9 +73,10 @@
         if (shipLeft === (nextPortElement.offsetLeft - 32)) {
           ship.setSail();
           ship.dock();
-          this.renderMessage(`Now docking at ${ship.currentPort.name}`);
+          this.renderMessage(`Now docked at ${ship.currentPort.name}`);
 
           clearInterval(sailInterval);
+          this.headUpDisplay();
         }
 
         shipElement.style.left = `${shipLeft + 1}px`;
@@ -88,6 +92,19 @@
       window.setTimeout(() => {
         viewId.removeChild(messageElement);
       }, 2000);
+    }
+
+    headUpDisplay() {
+      const ship = this.ship;
+      if (ship.itinerary.ports.length > 0 && ship.currentPort !== null) {
+        const currentPortIndex = ship.itinerary.ports.indexOf(ship.currentPort);
+        const nextPortIndex = currentPortIndex + 1;
+        let detailMessage = `Current Port : ${ship.itinerary.ports[currentPortIndex].name}`;
+        if (nextPortIndex < ship.itinerary.ports.length) {
+          detailMessage += `<br>Next Port : ${ship.itinerary.ports[nextPortIndex].name}`;
+        }
+        document.getElementById('headUpDisplay').innerHTML = detailMessage;
+      }
     }
   }
   if (typeof module !== 'undefined' && module.exports) {
